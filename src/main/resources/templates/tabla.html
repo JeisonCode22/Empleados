@@ -23,6 +23,7 @@
 			<th>Descripcion</th>
 			<th>Destacada</th>
 			<th>Detalle</th>
+			<th>Borrar</th>
 		</tr>
 		<tr th:each="vacante:${vacantes}">
 			<td><img alt="logo de las empresa"
@@ -36,6 +37,8 @@
 			<td th:text="${vacante.destacado==1?'Si':'No'}"></td>
 			<td><a th:href="@{/vacantes/ver/{idTmp} (idTmp=${vacante.id})}"
 				class="btn btn-success"> Ver detalle</a></td>
+			<td><a th:href="@{/vacantes/borrar(id=${vacante.id})}"
+				class="btn btn-danger">Borrar</a></td>
 
 		</tr>
 		</tr>
