@@ -22,17 +22,20 @@
 			<th>Salario</th>
 			<th>Descripcion</th>
 			<th>Destacada</th>
+			<th>Detalle</th>
 		</tr>
 		<tr th:each="vacante:${vacantes}">
-			<td>
-				<img alt="logo de las empresa" th:src="@{/images/{img} (img=${vacante.imagen})}">
-			</td>
+			<td><img alt="logo de las empresa"
+				th:src="@{/images/{img} (img=${vacante.imagen})}" width=140
+				height=140></td>
 			<td th:text="${vacante.id}"></td>
 			<td th:text="${vacante.nombre}"></td>
 			<td th:text="${vacante.fecha}"></td>
 			<td th:text="${vacante.salario}"></td>
 			<td th:text="${vacante.descripcion}"></td>
 			<td th:text="${vacante.destacado==1?'Si':'No'}"></td>
+			<td><a th:href="@{/vacantes/ver/{idTmp} (idTmp=${vacante.id})}"
+				class="btn btn-success"> Ver detalle</a></td>
 
 		</tr>
 		</tr>
