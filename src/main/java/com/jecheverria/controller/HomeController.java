@@ -18,7 +18,9 @@ public class HomeController {
 	private IvacantesServicio servicioVacantes;
 
 	@GetMapping("/")
-	public String mostrarHome() {
+	public String mostrarHome(Model model) {
+		List<Vacante> lista = servicioVacantes.buscarTodas();
+		model.addAttribute("vacantes", lista);
 		return "home";
 	}
 
