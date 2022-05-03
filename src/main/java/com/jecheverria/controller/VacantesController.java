@@ -1,7 +1,10 @@
 package com.jecheverria.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jecheverria.model.Vacante;
 import com.jecheverria.servicios.IvacantesServicio;
@@ -26,17 +30,25 @@ public class VacantesController {
 	@Autowired
 	private IvacantesServicio servicioVacantes;
 
+	@GetMapping("/index")
+	public String mostrarIndex(Model model) {
+		List<Vacante> lista = servicioVacantes.buscarTodas();
+		model.addAttribute("vacantes", lista);
+		return "vacantes/listVacantes";
+	}
+
 	@PostMapping("/guardar")
-	public String guardar(Vacante vacante, BindingResult result) {
-		if(result.hasErrors()) {
-			for(ObjectError error:result.getAllErrors()) {
+	public String guardar(Vacante vacante, BindingResult result, RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			for (ObjectError error : result.getAllErrors()) {
 				System.out.println(error.getDefaultMessage());
 			}
-			return"vacantes/formVacante";
+			return "vacantes/formVacante";
 		}
 		servicioVacantes.guardar(vacante);
+		attributes.addFlashAttribute("msg", "Registro guardado");
 		System.out.println(vacante);
-		return "vacantes/listVacantes";
+		return "redirect:/vacantes/index";
 	}
 
 	@GetMapping("/crear")
