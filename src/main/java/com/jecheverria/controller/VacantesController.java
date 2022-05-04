@@ -1,6 +1,5 @@
 package com.jecheverria.controller;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jecheverria.model.Vacante;
+import com.jecheverria.servicios.ICategoriasService;
 import com.jecheverria.servicios.IvacantesServicio;
 
 @Controller
@@ -28,6 +28,9 @@ import com.jecheverria.servicios.IvacantesServicio;
 public class VacantesController {
 	@Autowired
 	private IvacantesServicio servicioVacantes;
+	
+	@Autowired
+	private ICategoriasService serviceCategorias;
 
 	@GetMapping("/index")
 	public String mostrarIndex(Model model) {
@@ -51,7 +54,8 @@ public class VacantesController {
 	}
 
 	@GetMapping("/crear")
-	public String crear(Vacante vacante) {
+	public String crear(Vacante vacante, Model model) {
+		model.addAttribute("categorias", serviceCategorias.buscarTodas());
 		return "vacantes/formVacante";
 	}
 
