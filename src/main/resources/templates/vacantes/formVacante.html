@@ -33,7 +33,7 @@
 				</h4>
 				<div class="card-body">
 					<form th:action="@{/vacantes/guardar}" method="post"
-						th:object="${vacante}">
+						th:object="${vacante}"  enctype="multipart/form-data">
 						<div th:if="${#fields.hasErrors('*')}" class='alert alert-danger'
 							role='alert'>
 							Por favor corrija los siguientes errores:
