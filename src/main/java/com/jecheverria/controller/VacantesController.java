@@ -1,6 +1,5 @@
 package com.jecheverria.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
